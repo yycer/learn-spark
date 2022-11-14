@@ -1,5 +1,5 @@
+import org.apache.spark.sql.functions.{col, count, lit}
 import org.apache.spark.sql.{SparkSession, functions}
-import org.apache.spark.sql.functions.{col, count, lit, product}
 
 /**
  * @author Frankie
