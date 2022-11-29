@@ -15,15 +15,17 @@ object CarLottery {
         val applyNumbersDF = sparkSession.read.parquet(apply_path)
         val luckyDogsDF = sparkSession.read.parquet(lucky_path)
 
-        val filteredLuckyDogs = luckyDogsDF.filter(col("batchNum") >= "201601").select("carNum")
-        val jointDF = applyNumbersDF.join(filteredLuckyDogs, Seq("carNum"), "inner")
-        val multipliers = jointDF.groupBy(col("batchNum"), col("carNum"))
-            .agg(count(lit(1)).alias("multiplier"))
-        val uniqueMultipliers = multipliers.groupBy("carNum")
-            .agg(functions.max("multiplier").alias("multiplier"))
-        val result = uniqueMultipliers.groupBy("multiplier")
-            .agg(count(lit(1)).alias("cnt")).orderBy("multiplier")
+        luckyDogsDF.show()
 
-        result.collect()
+//        val filteredLuckyDogs = luckyDogsDF.filter(col("batchNum") >= "201601").select("carNum")
+//        val jointDF = applyNumbersDF.join(filteredLuckyDogs, Seq("carNum"), "inner")
+//        val multipliers = jointDF.groupBy(col("batchNum"), col("carNum"))
+//            .agg(count(lit(1)).alias("multiplier"))
+//        val uniqueMultipliers = multipliers.groupBy("carNum")
+//            .agg(functions.max("multiplier").alias("multiplier"))
+//        val result = uniqueMultipliers.groupBy("multiplier")
+//            .agg(count(lit(1)).alias("cnt")).orderBy("multiplier")
+//
+//        result.collect()
     }
 }
